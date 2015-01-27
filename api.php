@@ -62,6 +62,3 @@ switch($_GET['act']) {
     echo message("Invalid call", 1);
     break;
 }
-
-
-?>

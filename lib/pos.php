@@ -47,5 +47,3 @@ function buildPosIcons($db) {
     
     return $output;
 }
-
-?>

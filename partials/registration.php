@@ -25,5 +25,3 @@ switch($_GET['act']) {
 		echo "Ongeldige actie.";
 		break;
 }
-
-?>

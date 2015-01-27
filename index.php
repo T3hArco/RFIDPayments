@@ -28,15 +28,8 @@ if($_GET['page'] == "logout") {
     header("Location: index.php?page=login");
 }
 
-if($_GET['page'] == "authenticate" && isset($_SESSION['authenticated'])) {
-    /*if($_SESSION['cashier'] == 1 && $_SESSION['admin'] == 1)
-        header("Location: ?page=admin");
-    else if($_SESSION['cashier'] == 1)
-        header("Location: ?page=cashier");
-    else
-        header("Location: ?page=registration");*/
+if($_GET['page'] == "authenticate" && isset($_SESSION['authenticated']))
     header("Location: ?page=home");
-}
 
 if(!isset($_SESSION['authenticated']) && $_GET['page'] != "authenticate")
     header("Location: ?page=authenticate");

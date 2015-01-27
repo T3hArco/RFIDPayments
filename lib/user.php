@@ -35,5 +35,7 @@ function authenticateUser($user, $pass, $rfid, $db) {
         $_SESSION['authenticated'] = true;
         $_SESSION['fullname'] = $data['fullname'];
         echo("Debug: authenticated");
-    }    
+    }
+
+    return true;
 }
