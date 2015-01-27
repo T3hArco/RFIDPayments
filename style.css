@@ -1,0 +1,134 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+* {
+    padding: 0px;
+    margin: 0px;   
+}
+
+body, html {
+    height: 90%;
+    font-family: 'Open Sans', sans-serif;
+    
+    background-image: url("assets/bg.jpg");
+}
+
+button, input[type="submit"] {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;   
+    
+    color: #fff;
+    background-color: rgba(141, 20, 39, 0.7);
+    border-color: rgba(141, 20, 39, 0.87);
+}
+
+    .largeBtn {
+        width: 100%;
+    }
+
+.col-xs-6.col-md-3 a {
+    text-decoration: none;
+}
+
+.notice {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+    .notice.error {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+    .notice.alert {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+
+    .notice.info {
+        color: #31708f;
+        background-color: #d9edf7;
+        border-color: #bce8f1;   
+    }
+
+#container {
+    height: 100%;
+    width: 80%;
+    margin: auto;
+}
+
+    #container #adminbox {
+        width: 60%;
+        margin: auto;
+    }
+
+    #container #header {
+        height: 100px;
+        background-image: url("assets/header.jpg"); 
+    }
+
+        #container #header #logo {
+            line-height: 100px;
+            margin-left: 20px;   
+            color: #FFFFFF;
+            font-size: 25px;
+        }
+
+            #container #header #logo img {
+                height: 5%;
+                width: 5%;
+            }
+
+    #container #navbar {
+        height: 20px;
+        background-color: rgba(141, 20, 39, 0.7);
+    }
+
+    #container #content {
+        height: 100%;
+        background-color: #FFFFFF;
+        
+        padding: 10px;
+    }
+
+        #container form { /* Courtesy of the folks at Bootstrap */
+            width: 60%;
+            margin: auto;
+        }
+
+            .form-control-feedback {
+                top: 25px !important;
+                right: 0px !important;
+            }
+
+    #container #footer {
+        height: 20px;
+        line-height: 20px;
+        
+        background-color: rgba(141, 20, 39, 0.7);
+        color: #FFFFFF;
+        bottom: 1;
+        
+        text-align: center;
+        font-size: 10px;
+    }
