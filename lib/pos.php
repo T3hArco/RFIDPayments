@@ -15,6 +15,7 @@ function buildPosIcons($db) {
             
             $output .= '<div class="col-xs-6 col-md-3">
                         <a href="#" class="thumbnail" onclick="return addToPosTotal(\'' . $row['name'] . '\', ' . $row['price'] . ');">
+                          <!--<img src="assets/food/' . $row['picture'] . '" alt="' . $row['name'] . '" style="height:64px;">-->
                           <img src="assets/food/' . $row['picture'] . '" alt="' . $row['name'] . '" style="height:64px;">
                           <div class="caption">
                             <h3>' . $row['name'] . '</h3>
@@ -33,16 +34,6 @@ function buildPosIcons($db) {
                           </div>
                         </a>
                       </div>';
-
-        /*$output .= '<div class="col-xs-6 col-md-3">
-                        <a href="#" class="thumbnail" onclick="return removeLastPos();">
-                          <img src="assets/food/clear.png" alt="Clear" style="height:64px;">
-                          <div class="caption">
-                            <h3>Verwijder laatste</h3>
-                            <p>Rectify</p>
-                          </div>
-                        </a>
-                      </div>';*/
     }
     
     return $output;
