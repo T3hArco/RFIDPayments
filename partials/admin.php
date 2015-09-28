@@ -25,6 +25,10 @@ switch($_GET['act']) {
 		include("abits/moduser.php");
 		break;
 
+	case 'logfile':
+		include("abits/log.php");
+		break;
+
 	default:
 		echo "Ongeldige actie.";
 		break;

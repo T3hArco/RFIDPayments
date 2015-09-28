@@ -22,7 +22,7 @@
         <div id="container">
             <div id="header">
                 <div id="logo">
-                    <img src="assets/logo.png"> EhackB Point of Sale
+                    <a href="index.php?page=home" style="text-decoration: none;color: white;"><img src="assets/logo.png"> EhackB Point of Sale</a>
                 </div>
             </div>
             

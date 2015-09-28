@@ -12,20 +12,24 @@
 
 define("main", true);
 session_start();
-error_reporting("E_ALL");
 
-include("lib/db.php");
+ini_set("display_errors", 1);
+//error_reporting("~NOTICE");
+
+//include("lib/db.php");
 include("lib/user.php");
 include("lib/pos.php");
 
 include("class/Database.class.php");
 include("class/Pos.class.php");
+include("class/Logger.class.php");
 
 $db2 = new pos\Database("127.0.0.1", "root", "root", "ehackb_deve");
 $pos = new pos\Pos($db2->getDbObject());
+$log = new helpers\Logger($db2->getDbObject());
 
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['rfid']))
-    authenticateUser($_POST['username'], $_POST['password'], $_POST['rfid'], $db);
+    authenticateUser($_POST['username'], $_POST['password'], $_POST['rfid'], $db2, $log);
 
 if (!isset($_GET['page']))
     $_GET['page'] = "";

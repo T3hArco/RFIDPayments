@@ -18,6 +18,7 @@ if(isset($_POST['rfid'])) {
         } else {
             if($result = mysqli_query($db, "UPDATE users SET balance = balance - '" . $total . "' WHERE rfid_tag = '" . $rfid . "';")) {
                 echo '<div class="alert alert-success"><strong>OK!</strong> Aankoop geregistreerd. Nieuwe balans: <strong>' . $balance . '</strong></div>';
+                $log->log("SALE", "Made sale to " . $rfid . " for " . $balance);
             }
         }
     }

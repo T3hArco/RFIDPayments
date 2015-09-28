@@ -41,6 +41,7 @@
         </a>
         <a href="?page=admin&act=createuser" class="list-group-item <?php userHasPermission($_SESSION['admin']) ?>"><span class="glyphicon glyphicon-plus"></span> Gebruiker aanmaken</a>
         <a href="?page=admin&act=moduser" class="list-group-item <?php userHasPermission($_SESSION['admin']) ?>"><span class="glyphicon glyphicon-edit"></span> Gebruiker bijwerken</a>
+        <a href="?page=admin&act=logfile" class="list-group-item <?php userHasPermission($_SESSION['root']) ?>"><span class="glyphicon glyphicon-eye-open"></span> Controleer logbestand</a>
         <a href="?page=admin&act=deluser" class="list-group-item list-group-item-danger <?php userHasPermission($_SESSION['admin']) ?>"><span class="glyphicon glyphicon-exclamation-sign"></span> Gebruiker verwijderen</a>
       </div>
     </div>
