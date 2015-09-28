@@ -14,11 +14,10 @@ define("main", true);
 session_start();
 
 ini_set("display_errors", 1);
-//error_reporting("~NOTICE");
 
 //include("lib/db.php");
 include("lib/user.php");
-include("lib/pos.php");
+//include("lib/pos.php");
 
 include("class/Database.class.php");
 include("class/Pos.class.php");
