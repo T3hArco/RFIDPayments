@@ -3,10 +3,10 @@
 if(!defined("main"))
     die();
 
-$host = "63.143.48.153";
-$user = "ehackb_rfid";
-$pass = "A6Smv2NjUVDWwd2N";
-$data = "ehackb_rfid";
+$host = "localhost";
+$user = "root";
+$pass = "root";
+$data = "ehackb_deve";
 
 $db = new mysqli($host, $user, $pass, $data);
 

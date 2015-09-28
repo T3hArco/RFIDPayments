@@ -104,8 +104,8 @@ button, input[type="submit"] {
         background-color: rgba(141, 20, 39, 0.7);
     }
 
-    #container #content {
-        height: 100%;
+    #content {
+        min-height: 100%;
         background-color: #FFFFFF;
         
         padding: 10px;
@@ -132,3 +132,14 @@ button, input[type="submit"] {
         text-align: center;
         font-size: 10px;
     }
+
+
+
+.clear {
+    clear: both;
+}
+
+#paybutton {
+    min-width: 100%;
+    height: 40px;
+}

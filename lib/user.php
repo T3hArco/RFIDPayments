@@ -21,13 +21,13 @@ function authenticateUser($user, $pass, $rfid, $db) {
             return false;
         }
     }
-    
+
     if($result = mysqli_query($db, "SELECT * FROM users WHERE (rfid_tag = '" . $rfid . "' AND username = '" . $user . "' AND password = '" . $pass . "' AND username != 'attendee');")) {
         if(mysqli_num_rows($result) == 0) {
             echo("Debug: user allowed in IP, but not in table");
             return false;
-        } 
-        
+        }
+
         $data = $result->fetch_array(MYSQLI_ASSOC);
         $_SESSION['admin'] = $data['admin'];
         $_SESSION['cashier'] = $data['cashier'];

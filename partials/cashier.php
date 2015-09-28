@@ -14,7 +14,7 @@ if(isset($_POST['rfid'])) {
         $balance = (mysqli_fetch_row($result)[0] - $total);
 
         if($balance < 0) {
-            die("That's an error..");
+            echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> De balans van deze gebruiker zou bij deze actie onder nul gaan.</div>");
         } else {
             if($result = mysqli_query($db, "UPDATE users SET balance = balance - '" . $total . "' WHERE rfid_tag = '" . $rfid . "';")) {
                 echo '<div class="alert alert-success"><strong>OK!</strong> Aankoop geregistreerd. Nieuwe balans: <strong>' . $balance . '</strong></div>';
@@ -29,41 +29,45 @@ if(isset($_POST['rfid'])) {
 
 <div class="row">
     <div class="col-md-8">
-        <?php echo buildPosIcons($db); ?>
+        <? echo $pos->buildProductList() ?>
     </div>
     
     <div class="col-md-4">
+        <div><a href="#" class="thumbnail" onclick="return clearPos();"><div class="thumbnail"><img src="assets/food/clear.png" alt="Clear" style="height:64px;"></div><div class="caption"><h3>Begin opnieuw</h3><p>Reset het winkelmandje</p></div></a></div>
         <div class="well">
             <form class="form-horizontal" role="form" id="cashierForm" name="cashierForm" method="post">
-                <table class="table table-striped" id="receipt">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Prijs</th>
-                        <tr>
-                    </thead>
-                </table>
-                
-            <hr>
+                <div class="form-group" id="cashierForm">
+                    <label for="total" class="col-sm-2 control-label">Totaal</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="total" name="totaal" placeholder="Totaal" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="total" class="col-sm-2 control-label">RFID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="rfid" name="rfid" placeholder="RFID">
+                    </div>
+                </div>
 
-            <div class="form-group" id="cashierForm">
-                <label for="total" class="col-sm-2 control-label">Totaal</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="total" name="totaal" placeholder="Totaal" value="0">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="total" class="col-sm-2 control-label">RFID</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="rfid" name="rfid" placeholder="RFID">
-                </div>
-            </div> 
-            
-            <input type="hidden" id="tf">
+                <input type="hidden" id="tf">
+
+                <hr>
+
+                <input type="submit" class="btn btn-block" id="paybutton" value="Maak betaling!" id="cash-submit">
+            </form>
 
             <hr>
-        
-            <input type="submit" class="btn-block" value="Maak betaling!" onclick="return contactCardApi();">
+
+            <table class="table table-striped" id="receipt">
+                <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Prijs</th>
+                <tr>
+                </thead>
+            </table>
         </div>
     </div>
+
+    <br class="clear" />
 </div>

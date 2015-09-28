@@ -117,6 +117,59 @@ $(document).ready(function() {
             }
         }
     });
+
+    $("#cash-submit").click(function(e){
+        e.preventDefault();
+
+        var rfid = $("#rfid").val();
+        var totaal = $("#total").val();
+        var error, message, balance;
+
+        if(rfid == "")
+            return false;
+
+        $.ajax({
+            async: false,
+            type: 'GET',
+            url: "api.php?act=checkbal&id=" + rfid,
+            success: function(data) {
+                var response = data[0];
+                var detail = data[1];
+                balance = detail;
+
+                if(response == "Error") {
+                    error = true;
+
+                    switch(detail) {
+                        case "Unknown ID":
+                            message = "De ingegeven ID werd niet herkend door het systeem. (Stuur naar registratie!)";
+                            break;
+
+                        case "Access denied":
+                            message = "Sessie is vervallen.. (Refresh)";
+                            break;
+
+                        default:
+                            message = "Er is een generiek error opgetreden.. (Radio Arnaud ASAP!)";
+                            break;
+                    }
+                }
+            }
+        });
+
+        if(parseFloat(totaal) > parseFloat(balance)) {
+            error = true;
+            message = "De gebruiker heeft niet genoeg balans..";
+        }
+
+        if(error) {
+            $("#result").html("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> " + message + "</div>");
+            return false;
+        }
+
+        $(this).submit();
+        return true;
+    });
 });
 
 function addToPosTotal(name, price) {
@@ -198,3 +251,4 @@ function removeLastPos() {
     $("#adder").remove();
 
 }
+
