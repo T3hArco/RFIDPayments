@@ -4,19 +4,21 @@ if(!defined("main") || !isset($_SESSION['authenticated']) || $_SESSION['cashier'
     die("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> Uw account heeft geen toegang tot deze module. De toegang is gelogd en geweigerd.</div>");
 
 if(isset($_POST['rfid'])) {
-    $total = mysqli_real_escape_string($db, $_POST['totaal']);
-    $rfid = mysqli_real_escape_string($db, $_POST['rfid']);
+    $total = $_POST['totaal'];
+    $rfid = $_POST['rfid'];
 
     if($total < 0)
         die("Het totaal kan /niet/ negatief zijn..");
 
-    if($result = mysqli_query($db, "SELECT balance FROM users WHERE rfid_tag = '" . $rfid . "';")) {
-        $balance = (mysqli_fetch_row($result)[0] - $total);
+    $balance = $db2->getDbObject()->prepare("SELECT balance FROM users WHERE rfid_tag = ?;");
+    if($balance->execute(array($rfid))) {
+        $balance = ($balance->fetchAll()[0]['balance'] - $total);
 
         if($balance < 0) {
             echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> De balans van deze gebruiker zou bij deze actie onder nul gaan.</div>");
         } else {
-            if($result = mysqli_query($db, "UPDATE users SET balance = balance - '" . $total . "' WHERE rfid_tag = '" . $rfid . "';")) {
+            $updateBalance = $db2->getDbObject()->prepare("UPDATE users SET balance = balance - ? WHERE rfid_tag = ?;");
+            if($updateBalance->execute(array($total, $rfid))) {
                 echo '<div class="alert alert-success"><strong>OK!</strong> Aankoop geregistreerd. Nieuwe balans: <strong>' . $balance . '</strong></div>';
                 $log->log("SALE", "Made sale to " . $rfid . " for " . $balance);
             }

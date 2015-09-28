@@ -178,6 +178,7 @@ function addToPosTotal(name, price) {
     var total = parseFloat($("#total").val()) + price; 
     $("#total").val(total);
     $("#receipt").append('<tr class="adder" id="adder"><td>' + name + '</td><td id="price">' + price + '</td></tr>');
+    $("#rfid").focus().select.trigger('focus').trigger('click');
 }
 
 function changeBalance(value) {
