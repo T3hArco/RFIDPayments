@@ -6,6 +6,7 @@ if(!defined("main") || !isset($_SESSION['authenticated']) || $_SESSION['cashier'
 if(isset($_POST['rfid'])) {
     $total = $_POST['totaal'];
     $rfid = $_POST['rfid'];
+    $user = $_SESSION['id'];
 
     if($total < 0)
         die("Het totaal kan /niet/ negatief zijn..");
@@ -18,7 +19,8 @@ if(isset($_POST['rfid'])) {
             echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> De balans van deze gebruiker zou bij deze actie onder nul gaan.</div>");
         } else {
             $updateBalance = $db2->getDbObject()->prepare("UPDATE users SET balance = balance - ? WHERE rfid_tag = ?;");
-            if($updateBalance->execute(array($total, $rfid))) {
+            $makeTransaction = $db2->getDbObject()->prepare("INSERT INTO sales(user, amount, datetime) VALUES(?, ?, NOW())");
+            if($updateBalance->execute(array($total, $rfid)) && $makeTransaction->execute(array($user, $total))) {
                 echo '<div class="alert alert-success"><strong>OK!</strong> Aankoop geregistreerd. Nieuwe balans: <strong>' . $balance . '</strong></div>';
                 $log->log("SALE", "Made sale to " . $rfid . " for " . $balance);
             }

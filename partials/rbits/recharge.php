@@ -3,30 +3,6 @@
 if (!defined("bitmaster"))
     die();
 
-/*if (isset($_POST['rfid'])) {
-    $error = false;
-    $rfid = mysqli_real_escape_string($db, $_POST['rfid']);
-    $addbalance = mysqli_real_escape_string($db, $_POST['balance']);
-
-    if ($result = mysqli_query($db, "UPDATE users SET balance = balance + '" . $addbalance . "' WHERE rfid_tag = '" . $rfid . "';")) {
-        $balance = mysqli_query($db, "SELECT balance FROM users WHERE rfid_tag = '" . $rfid . "';");
-        $bdata = mysqli_fetch_row($balance);
-
-        if (mysqli_num_rows($balance) == 1) {
-            echo '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Balans geregistreerd. Nieuwe balans: ' . $bdata[0] . '</div>';
-            $log->log("RELOAD", "Reloaded balance for user " . $rfid . " with " . $addbalance . " new balance " . $bdata[0]);
-        }
-        else {
-            echo '<div class="notice error"><span class="glyphicon glyphicon-remove"></span> Onbekende RFID.</div>';
-            $log->log("ERROR", "Failed reload balance " . $rfid . " with " . $addbalance . " user doesn't exist");
-        }
-    } else {
-        $error = true;
-        echo '<div class="notice error"><span class="glyphicon glyphicon-remove"></span> Geen balansupdate uitgevoerd.</div>';
-        $log->log("ERROR", "Failed reload balance " . $rfid . " with " . $addbalance . " (Generic uncaught error)");
-    }
-}*/
-
 if (isset($_POST['rfid'])) {
     $error = false;
     $rfid = $_POST['rfid'];
@@ -42,11 +18,15 @@ if (isset($_POST['rfid'])) {
         if ($balance->rowCount() == 1) {
             echo '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Balans geregistreerd. Nieuwe balans: ' . $balance_value . '</div>';
             $log->log("RELOAD", "Reloaded balance " . $rfid . " to " . $balance_value);
-        } else
+        } else {
             echo '<div class="notice error"><span class="glyphicon glyphicon-remove"></span> Onbekende RFID.</div>';
+            $log->log("ERROR", "Failed reload balance " . $rfid . " with " . $addbalance . " user doesn't exist");
+        }
     } else {
         $error = true;
         echo '<div class="notice error"><span class="glyphicon glyphicon-remove"></span> Geen balansupdate uitgevoerd.</div>';
+        $log->log("ERROR", "Failed reload balance " . $rfid . " with " . $addbalance . " (Generic uncaught error)");
+
     }
 }
 

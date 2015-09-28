@@ -67,6 +67,10 @@ switch ($_GET['page']) {
         include "partials/cashier.php";
         break;
 
+    case 'salestat':
+        include "partials/salestat.php";
+        break;
+
     case 'home':
         include "partials/home.php";
         break;
@@ -81,3 +85,5 @@ switch ($_GET['page']) {
 }
 
 include "partials/footer.php";
+
+$db2->close();

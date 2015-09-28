@@ -19,6 +19,7 @@
           <p class="list-group-item-text">Verkoop producten</p>
         </a>
         <a href="?page=cashier" class="list-group-item <?php userHasPermission($_SESSION['cashier']) ?>"><span class="glyphicon glyphicon-barcode"></span> Point of Sale</a>
+        <a href="?page=salestat" class="list-group-item <?php userHasPermission($_SESSION['cashier']) ?>"><span class="glyphicon glyphicon-flash"></span> Statistics</a>
       </div>
     </div>
 

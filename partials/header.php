@@ -16,6 +16,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
         <meta charset="utf-8">
     </head>
     <body>

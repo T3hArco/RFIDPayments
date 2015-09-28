@@ -35,7 +35,7 @@ class Logger
 
     public function buildLogTable()
     {
-        $entries = $this->db->query("SELECT * FROM log l JOIN users u ON(l.user = u.id) ORDER BY u.id DESC");
+        $entries = $this->db->query("SELECT * FROM log l JOIN users u ON(l.user = u.id) ORDER BY l.id DESC");
         $output = '<table class="table table-hover"><thead><th>#</th><th>User</th><th>Timestamp</th><th>Type</th><th>Page</th><th>IP</th><th>Data</th></thead>';
 
         foreach ($entries as $entry) {
@@ -51,7 +51,7 @@ class Logger
                     break;
             }
 
-            $output .= '<tr' . $class . '><th scope="row">' . $entry['id'] . '</th><td>' . $entry['username'] . ' (' . $entry['user'] . ')</td><td>' . $entry['datetime'] . '</td><td>' . $entry['type'] . '</td><td>' . $entry['page'] . '</td><td>' . $entry['ip'] . '</td><td>' . $entry['data'] . '</td></tr>';
+            $output .= '<tr' . $class . '><th scope="row">' . $entry[0] . '</th><td>' . $entry['username'] . ' (' . $entry['user'] . ')</td><td>' . $entry['datetime'] . '</td><td>' . $entry['type'] . '</td><td>' . $entry['page'] . '</td><td>' . $entry['ip'] . '</td><td>' . $entry['data'] . '</td></tr>';
         }
 
         $output .= '</table>';

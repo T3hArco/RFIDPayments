@@ -6,7 +6,7 @@
             </div>
 
             <div id="footer">
-                &copy; Arnaud Coel &amp; EHB stock images - All rights reserved
+                &copy; Arnaud Coel - All rights reserved 2014 - <? echo date('Y') ?>
             </div>
         </div>
     </body>

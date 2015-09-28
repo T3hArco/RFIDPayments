@@ -30,6 +30,9 @@ function message($message, $error = 0)
 include("lib/db.php");
 include("lib/user.php");
 include("lib/pos.php");
+include("class/Database.class.php");
+
+$db = new \pos\Database("localhost", "root", "root", "ehackb_deve");
 
 if (!isset($_SESSION['authenticated']) || $_SESSION['cashier'] == 0)
     die(jsonify(array("Error", "Access denied")));
@@ -57,6 +60,18 @@ switch ($_GET['act']) {
             echo message("Duplicate", true);
         else
             echo message("Badge registered in system");
+
+        break;
+
+    case 'getSales':
+        $salesByHour = $db->getDbObject()->query("SELECT HOUR(purchasedate), SUM(amount) FROM sales GROUP BY HOUR(purchasedate)")->fetchAll();
+        $output = array();
+
+        foreach($salesByHour as $hour) {
+            array_push($output, array($hour[0] => $hour[1]));
+        }
+
+        echo json_encode($output);
 
         break;
 

@@ -252,4 +252,3 @@ function removeLastPos() {
     $("#adder").remove();
 
 }
-
