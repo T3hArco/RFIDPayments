@@ -19,7 +19,7 @@ if(isset($_POST['rfid'])) {
             echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> De balans van deze gebruiker zou bij deze actie onder nul gaan.</div>");
         } else {
             $updateBalance = $db2->getDbObject()->prepare("UPDATE users SET balance = balance - ? WHERE rfid_tag = ?;");
-            $makeTransaction = $db2->getDbObject()->prepare("INSERT INTO sales(user, amount, datetime) VALUES(?, ?, NOW())");
+            $makeTransaction = $db2->getDbObject()->prepare("INSERT INTO sales(user, amount, purchasedate) VALUES(?, ?, NOW())");
             if($updateBalance->execute(array($total, $rfid)) && $makeTransaction->execute(array($user, $total))) {
                 echo '<div class="alert alert-success"><strong>OK!</strong> Aankoop geregistreerd. Nieuwe balans: <strong>' . $balance . '</strong></div>';
                 $log->log("SALE", "Made sale to " . $rfid . " for " . $balance);

@@ -32,7 +32,7 @@ include("lib/user.php");
 include("lib/pos.php");
 include("class/Database.class.php");
 
-$db = new \pos\Database("localhost", "root", "root", "ehackb_deve");
+$db2 = new \pos\Database("localhost", "root", "root", "ehackb_deve");
 
 if (!isset($_SESSION['authenticated']) || $_SESSION['cashier'] == 0)
     die(jsonify(array("Error", "Access denied")));
@@ -42,21 +42,24 @@ if (!isset($_GET['act']))
 
 switch ($_GET['act']) {
     case 'checkbal':
-        $rfid = mysqli_real_escape_string($db, $_GET['id']);
+        $rfid = $_GET['id'];
 
-        if ($result = mysqli_query($db, "SELECT balance FROM users WHERE rfid_tag = '" . $rfid . "';")) {
-            if (mysqli_num_rows($result) == 0) {
+        $account = $db2->getDbObject()->prepare("SELECT balance FROM users WHERE rfid_tag = ?;");
+        if ($account->execute(array($rfid))) {
+            if ($account->rowCount() == 0) {
                 echo message("Unknown ID", 1);
                 return;
             }
 
-            echo jsonify(array("Balance", mysqli_fetch_row($result)[0]));
+            echo jsonify(array("Balance", $account->fetchAll()[0]['balance']));
         }
         break;
 
     case 'register':
-        $rfid = mysqli_real_escape_string($db, $_GET['rfid']);
-        if (!$result = mysqli_query($db, "INSERT INTO users (rfid_tag, admin, cashier, balance) VALUES ('" . $rfid . "', '0', '0', '0');"))
+        $rfid = $_GET['rfid'];
+
+        $register = $db2->getDbObject()->prepare("INSERT INTO users (rfid_tag, admin, cashier, balance) VALUES (?, '0', '0', '0');");
+        if (!$register->execute(array($rfid)))
             echo message("Duplicate", true);
         else
             echo message("Badge registered in system");
