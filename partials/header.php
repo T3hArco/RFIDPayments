@@ -17,6 +17,10 @@
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
         <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
         <meta charset="utf-8">
     </head>
     <body>

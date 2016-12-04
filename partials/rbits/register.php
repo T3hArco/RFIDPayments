@@ -58,3 +58,11 @@ if (isset($_POST['rfid'])) {
     </div>
     <input type="submit" class="btn-block" value="Complete registration">
 </form>
+
+<script>
+    $(function() {
+        $( "#name" ).autocomplete({
+            source: 'api.php?act=getNames'
+        });
+    });
+</script>

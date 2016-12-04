@@ -66,6 +66,21 @@ switch ($_GET['act']) {
 
         break;
 
+    case 'getNames':
+        $name = '%' . $_GET['term'] . '%';
+
+        $getNames = $db2->getDbObject()->prepare("SELECT concat(firstName, ' ', lastName) name FROM externalUsers WHERE lower(firstName) LIKE lower(?) OR lower(lastName) LIKE lower(?) OR lower(email) LIKE lower(?);");
+        $getNames->execute(array($name, $name, $name));
+
+        $output = array();
+
+        foreach($getNames->fetchAll() as $user)
+            array_push($output, $user['name']);
+
+        echo json_encode($output);
+
+        break;
+
     case 'getSales':
         $salesByHour = $db->getDbObject()->query("SELECT HOUR(purchasedate), SUM(amount) FROM sales GROUP BY HOUR(purchasedate)")->fetchAll();
         $output = array();
