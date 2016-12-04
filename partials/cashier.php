@@ -7,26 +7,41 @@ if (isset($_POST['rfid'])) {
     $total = $_POST['totaal'];
     $rfid = $_POST['rfid'];
     $user = $_SESSION['id'];
+    $purchases = $_POST['purchases'];
+
+    $purchases = rtrim($purchases, ",");
+    $purchArr = explode(",", $purchases);
+    $purchFixed = array_count_values($purchArr);
 
     if ($total < 0)
         die("Het totaal kan /niet/ negatief zijn..");
 
-    $balance = $db2->getDbObject()->prepare("SELECT balance FROM users WHERE rfid_tag = ?;");
+    $balance = $db2->getDbObject()->prepare("SELECT balance, id FROM users WHERE rfid_tag = ?;");
     if ($balance->execute(array($rfid))) {
         $result = $balance->fetchAll();
 
         if (!isset($result[0]) || empty($rfid)) {
             echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> Deze gebruiker bestaat niet.</div>");
         } else {
+            $id = $result[0]['id'];
             $balance = ($result[0]['balance'] - $total);
 
             if ($balance < 0) {
-                echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> De balans van deze gebruiker zou bij deze actie onder nul gaan.</div>");
+                echo("<div class='notice error'><span class='glyphicon glyphicon-minus-sign'></span> <strong>Fout!</strong> De balans van deze gebruiker zou bij deze actie onder nul gaan. (Heeft nog " . $result[0]['balance'] . ")</div>");
             } else {
                 $updateBalance = $db2->getDbObject()->prepare("UPDATE users SET balance = balance - ? WHERE rfid_tag = ?;");
                 $makeTransaction = $db2->getDbObject()->prepare("INSERT INTO sales(user, amount, purchasedate) VALUES(?, ?, NOW())");
-                if ($updateBalance->execute(array($total, $rfid)) && $makeTransaction->execute(array($user, $total))) {
+
+                if ($updateBalance->execute(array($total, $rfid)) && $makeTransaction->execute(array($id, $total))) {
                     echo '<div class="alert alert-success"><strong>OK!</strong> Aankoop geregistreerd. Nieuwe balans: <strong>' . $balance . '</strong></div>';
+
+                    $saleId = $db2->getDbObject()->lastInsertId();
+                    foreach($purchFixed as $key => $amount)
+                    {
+                        $recordSale = $db2->getDbObject()->prepare("INSERT INTO salesItems VALUES(?, ?, ?)");
+                        $recordSale->execute(array($saleId, $key, $amount));
+                    }
+
                     $log->log("SALE", "Made sale to " . $rfid . " for " . $balance);
                 }
             }
@@ -51,7 +66,7 @@ if (isset($_POST['rfid'])) {
             </a></div>
         <div class="well">
             <form class="form-horizontal" role="form" id="cashierForm" name="cashierForm" method="post">
-                <input type="text" name="purchases" id="purchases" value="" />
+                <input type="hidden" name="purchases" id="purchases" value="" />
 
                 <div class="form-group" id="cashierForm">
                     <label for="total" class="col-sm-2 control-label">Totaal</label>

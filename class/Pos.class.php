@@ -28,7 +28,7 @@ class Pos
             if (!file_exists("assets/food/" . $product['picture']))
                 $product['picture'] = "unknown.png";
 
-            $output .= '<div class="col-md-4"><a href="#" class="thumbnail" onclick="return addToPosTotal(\'' . $product['name'] . '\', ' . $product['price'] . ');"><div class="thumbnail"><img src="assets/food/' . $product['picture'] . '" alt="' . $product['name'] . '" style="height:64px;"></div><div class="caption"><h3>' . $product['name'] . '</h3><p>' . $product['price'] . ' bonnetje(s)</p></div></a></div>';
+            $output .= '<div class="col-md-4"><a href="#" class="thumbnail" onclick="return addToPosTotal(\'' . $product['name'] . '\', ' . $product['price'] . ', ' . $product['id'] . ');"><div class="thumbnail"><img src="assets/food/' . $product['picture'] . '" alt="' . $product['name'] . '" style="height:64px;"></div><div class="caption"><h3>' . $product['name'] . '</h3><p>' . $product['price'] . ' bonnetje(s)</p></div></a></div>';
         }
         return $output;
     }

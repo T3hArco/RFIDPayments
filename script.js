@@ -175,7 +175,7 @@ $(document).ready(function() {
     });
 });
 
-function addToPosTotal(name, price) {
+function addToPosTotal(name, price, id) {
     name = name.replace(/(<([^>]+)>)/ig,"");
     
     var total = parseFloat($("#total").val()) + price;
@@ -183,7 +183,7 @@ function addToPosTotal(name, price) {
 
     $("#total").val(total);
     $("#receipt").append('<tr class="adder" id="adder"><td>' + name + '</td><td id="price">' + price + '</td></tr>');
-    $("#purchases").attr("value", $("#purchases").attr("value") + name + ",");
+    $("#purchases").attr("value", $("#purchases").attr("value") + id + ",");
     $("#rfid").focus();
 }
 
