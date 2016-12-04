@@ -6,7 +6,7 @@ if(!defined("main"))
 $host = "localhost";
 $user = "root";
 $pass = "root";
-$data = "ehackb_deve";
+$data = "ehackb_pos";
 
 $db = new mysqli($host, $user, $pass, $data);
 

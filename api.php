@@ -32,7 +32,7 @@ include("lib/user.php");
 include("lib/pos.php");
 include("class/Database.class.php");
 
-$db2 = new \pos\Database("localhost", "root", "root", "ehackb_deve");
+$db2 = new \pos\Database("localhost", "root", "root", "ehackb_pos");
 
 if (!isset($_SESSION['authenticated']) || $_SESSION['cashier'] == 0)
     die(jsonify(array("Error", "Access denied")));

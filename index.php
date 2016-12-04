@@ -15,15 +15,13 @@ session_start();
 
 ini_set("display_errors", 1);
 
-//include("lib/db.php");
 include("lib/user.php");
-//include("lib/pos.php");
 
 include("class/Database.class.php");
 include("class/Pos.class.php");
 include("class/Logger.class.php");
 
-$db2 = new pos\Database("127.0.0.1", "root", "root", "ehackb_deve");
+$db2 = new pos\Database("127.0.0.1", "root", "root", "ehackb_pos");
 $pos = new pos\Pos($db2->getDbObject());
 $log = new helpers\Logger($db2->getDbObject());
 

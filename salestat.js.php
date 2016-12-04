@@ -2,11 +2,11 @@
 
 include "class/Database.class.php";
 
-$db = new \pos\Database("localhost", "root", "root", "ehackb_deve");
+$db = new \pos\Database("localhost", "root", "root", "ehackb_pos");
 $salesByHour = $db->getDbObject()->query("SELECT purchasedate, SUM(amount) FROM sales GROUP BY DAY(purchasedate), HOUR(purchasedate);");
 $cumul = 0;
 
-foreach($salesByHour as $sale) {
+foreach ($salesByHour as $sale) {
     $data[] = "['Cijfer om " . $sale[0] . "', $sale[1], $sale[2]]";
     $cumul += $sale[2];
 }

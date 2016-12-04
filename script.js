@@ -123,6 +123,9 @@ $(document).ready(function() {
 
         var rfid = $("#rfid").val();
         var totaal = $("#total").val();
+
+        $("#purchases").slice(0, -1);
+
         var error, message, balance;
 
         if(rfid == "")
@@ -157,7 +160,7 @@ $(document).ready(function() {
             }
         });
 
-        if(parseFloat(totaal) > parseFloat(balance)) {
+        if(parseFloat(totaal).toFixed(2) > parseFloat(balance).toFixed(2)) {
             error = true;
             message = "De gebruiker heeft niet genoeg balans..";
         }
@@ -175,15 +178,21 @@ $(document).ready(function() {
 function addToPosTotal(name, price) {
     name = name.replace(/(<([^>]+)>)/ig,"");
     
-    var total = parseFloat($("#total").val()) + price; 
+    var total = parseFloat($("#total").val()) + price;
+    total.toFixed(2)
+
     $("#total").val(total);
     $("#receipt").append('<tr class="adder" id="adder"><td>' + name + '</td><td id="price">' + price + '</td></tr>');
-    $("#rfid").focus().select.trigger('focus').trigger('click');
+    $("#purchases").attr("value", $("#purchases").attr("value") + name + ",");
+    $("#rfid").focus();
 }
 
 function changeBalance(value) {
     var balanceField = parseFloat($("#balance").val());
     value = parseFloat(value);
+
+    balanceField.toFixed(2);
+    value.toFixed(2);
 
     if(balanceField + value < 0)
         return false;
@@ -228,7 +237,7 @@ function contactCardApi() {
         }
     });
 
-    if(parseFloat(totaal) > parseFloat(balance)) {
+    if(parseFloat(totaal).toFixed(2) > parseFloat(balance).toFixed(2)) {
         error = true;
         message = "De gebruiker heeft niet genoeg balans..";
     }
