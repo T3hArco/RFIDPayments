@@ -47,11 +47,11 @@ switch ($_GET['act']) {
         $account = $db2->getDbObject()->prepare("SELECT balance FROM users WHERE rfid_tag = ?;");
         if ($account->execute(array($rfid))) {
             if ($account->rowCount() == 0) {
-                echo message("Unknown ID", 1);
+                echo jsonify(array("Unknown ID" => $rfid));
                 return;
             }
 
-            echo jsonify(array("Balance", $account->fetchAll()[0]['balance']));
+            echo jsonify(array("Balance" =>  $account->fetchAll()[0]['balance']));
         }
         break;
 
