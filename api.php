@@ -22,9 +22,9 @@ function jsonify($array)
 function message($message, $error = 0)
 {
     if ($error)
-        return jsonify(array("Error", $message));
+        return jsonify(array("Error" => $message));
 
-    return jsonify(array("OK", $message));
+    return jsonify(array("OK" => $message));
 }
 
 include("lib/db.php");
@@ -34,8 +34,8 @@ include("class/Database.class.php");
 
 $db2 = new \pos\Database("localhost", "root", "root", "ehackb_pos");
 
-if (!isset($_SESSION['authenticated']) || $_SESSION['cashier'] == 0)
-    die(jsonify(array("Error", "Access denied")));
+if ((!isset($_SESSION['authenticated']) || $_SESSION['cashier'] == 0) && $_GET['act'] != 'checkbal')
+    die(jsonify(array("Error" => "Access denied")));
 
 if (!isset($_GET['act']))
     $_GET['act'] = "";
