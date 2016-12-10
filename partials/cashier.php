@@ -77,7 +77,7 @@ if (isset($_POST['rfid'])) {
                 <div class="form-group">
                     <label for="total" class="col-sm-2 control-label">RFID</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="rfid" name="rfid" placeholder="RFID">
+                        <input type="text" class="form-control" id="rfid" name="rfid" placeholder="RFID" required>
                     </div>
                 </div>
 

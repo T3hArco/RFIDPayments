@@ -251,8 +251,10 @@ function contactCardApi() {
 }
 
 function clearPos() {
+    $("#purchases").val("");
     $("#total").val("0");
     $("#rfid").val("");
+
     $("#result").html("");
     $(".adder").remove();
 }
