@@ -35,6 +35,7 @@ function authenticateUser($user, $pass, $rfid, $db, $log) {
         $_SESSION['admin'] = $data['admin'];
         $_SESSION['cashier'] = $data['cashier'];
         $_SESSION['registration'] = $data['registration'];
+        $_SESSION['loaner'] = $data['loaner'];
         $_SESSION['authenticated'] = true;
         $_SESSION['fullname'] = $data['fullname'];
         $_SESSION['id'] = $data['id'];

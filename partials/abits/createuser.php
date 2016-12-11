@@ -11,11 +11,13 @@ if(isset($_POST['username'])) {
     $cashier = 0;
     $admin = 0;
     $registration = 0;
+    $loaner = 0;
 
     if(isset($_POST['admin'])) {
         $admin = 1;
         $cashier = 1;
         $registration = 1;
+        $loaner = 1;
     }
 
     if(isset($_POST['cashier']))
@@ -24,8 +26,11 @@ if(isset($_POST['username'])) {
     if(isset($_POST['registration']))
         $registration = 1;
 
-    $adduser = $db2->getDbObject()->prepare("INSERT INTO users (rfid_tag, admin, cashier, registration, balance, fullname, username, password) VALUES (?, ?, ?, ?, '0', ?, ?, ?);");
-    if(!$adduser->execute(array($rfid, $admin, $cashier, $registration, $fname, $username, $password))) {
+    if(isset($_POST['loaner']))
+        $loaner = 1;
+
+    $adduser = $db2->getDbObject()->prepare("INSERT INTO users (rfid_tag, admin, cashier, registration, balance, fullname, username, password, loaner) VALUES (?, ?, ?, ?, '0', ?, ?, ?, ?);");
+    if(!$adduser->execute(array($rfid, $admin, $cashier, $registration, $fname, $username, $password, $loaner))) {
         echo '<div class="alert alert-danger">User not added, radio Arnaud.. (or duplicate??)</div>';
         $log->log("ERROR", "Failed user registration " . $rfid);
     } else {
@@ -55,6 +60,12 @@ if(isset($_POST['username'])) {
     <div class="form-group">
         <label>Gebruikersrechten</label>
 
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="loaner">
+                Loaner
+            </label>
+        </div>
         <div class="checkbox">
             <label>
                 <input type="checkbox" name="cashier">

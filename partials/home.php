@@ -20,6 +20,7 @@
         </a>
         <a href="?page=cashier" class="list-group-item <?php userHasPermission($_SESSION['cashier']) ?>"><span class="glyphicon glyphicon-barcode"></span> Point of Sale</a>
         <a href="?page=salestat" class="list-group-item <?php userHasPermission($_SESSION['cashier']) ?>"><span class="glyphicon glyphicon-flash"></span> Statistics</a>
+        <a href="?page=salestat" class="list-group-item <?php userHasPermission($_SESSION['loaner']) ?>"><span class="glyphicon glyphicon-sort"></span> Loaning</a>
       </div>
     </div>
 

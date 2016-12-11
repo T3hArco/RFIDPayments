@@ -38,6 +38,9 @@ class Database
         $this->db = null;
     }
 
+    /**
+     * @return \PDO
+     */
     public function getDbObject()
     {
         return $this->db;

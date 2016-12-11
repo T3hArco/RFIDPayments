@@ -34,13 +34,28 @@ if (!isset($_GET['page']))
 if ($_GET['page'] == "logout") {
     session_destroy();
     header("Location: index.php?page=login");
+    exit;
 }
 
-if ($_GET['page'] == "authenticate" && isset($_SESSION['authenticated']))
+if ($_GET['page'] == "authenticate" && isset($_SESSION['authenticated'])) {
     header("Location: ?page=home");
+    exit;
+}
 
-if (!isset($_SESSION['authenticated']) && $_GET['page'] != "authenticate")
+if (!isset($_SESSION['authenticated']) && $_GET['page'] != "authenticate") {
     header("Location: ?page=authenticate");
+    exit;
+}
+
+if (isset($_GET['return'])) {
+    $id = $_GET['return'];
+
+    $update = $db2->getDbObject()->prepare("UPDATE loans SET returned = (returned ^ 1) WHERE id = ?");
+    if ($update->execute(array($id)))
+        header("Location: ?page=loaning&loan=success");
+    else
+        header("Location: ?page=loaning&loan=error");
+}
 
 /*
  * Page initialization
@@ -67,6 +82,10 @@ switch ($_GET['page']) {
 
     case 'salestat':
         include "partials/salestat.php";
+        break;
+
+    case 'loaning':
+        include "partials/loaning.php";
         break;
 
     case 'home':
