@@ -80,7 +80,7 @@ if(isset($_GET['loan']))
         ->prepare("SELECT l.id id, l.item item, u1.fullname loanerName, u2.fullname staffName, l.returned returned FROM loans l 
                             JOIN users u1 ON(l.loanerId = u1.id) 
                             JOIN users u2 ON(l.staffId = u2.id)
-                            ORDER BY l.returned, l.id;");
+                            ORDER BY l.returned, l.id DESC;");
 
     $loansQ->execute();
     $loans = $loansQ->fetchAll();
